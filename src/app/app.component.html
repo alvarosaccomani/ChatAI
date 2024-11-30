@@ -3,21 +3,26 @@
     <h1 class="title">¿En que puedo ayudarte?</h1>
     <div class="card">
       <div class="content vh-100">
-        <div class="message-user">
-          <div class="message-user-text">
-            Hola
-          </div>
-        </div>
-        <div class="message-gpt">
-          <div class="icon-message-gpt">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6CqmIbWlf0UxGroEMna38ZnqYv5K7GlqmGQ&s" alt="" class="icon">
-          </div>
-          <div class="content-message-gpt">
-            <p class="message-gpt-text">
-              Respuesta
-            </p>
-          </div>
-        </div>
+        @for (chat of chats; track $index) {
+          @if (chat.type === 'USER') {
+            <div class="message-user">
+              <div class="message-user-text">
+                {{ chat.message }}
+              </div>
+            </div>
+          } @else {
+            <div class="message-gpt">
+              <div class="icon-message-gpt">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6CqmIbWlf0UxGroEMna38ZnqYv5K7GlqmGQ&s" alt="" class="icon">
+              </div>
+              <div class="content-message-gpt">
+                <p class="message-gpt-text">
+                  Respuesta
+                </p>
+              </div>
+            </div>
+          }
+        }
       </div>
     </div>
     <div>
@@ -26,6 +31,8 @@
         placeholder="Escribir..." 
         class="input"
         autocomplete="off"
+        #txtInput
+        (keydown.enter)="sendMessage(txtInput.value)"
         >
     </div>
   </div>
